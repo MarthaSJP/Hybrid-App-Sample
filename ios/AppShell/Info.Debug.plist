@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
+    <key>UIApplicationSupportsIndirectInputEvents</key>
+    <true/>
+    <key>UILaunchScreen</key>
+    <dict/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>WEB_APPS</key>
+    <array>
+        <dict>
+            <key>id</key>
+            <string>hybrid-demo</string>
+            <key>title</key>
+            <string>Hybrid Demo</string>
+            <key>subtitle</key>
+            <string>Angular SPA (Local)</string>
+            <key>badgeText</key>
+            <string>LOCAL</string>
+            <key>iconSymbolName</key>
+            <string>network</string>
+            <key>accentColorHex</key>
+            <string>#2563EB</string>
+            <key>accentColorHexSecondary</key>
+            <string>#14B8A6</string>
+            <key>url</key>
+            <string>http://localhost:4200</string>
+            <key>allowedHosts</key>
+            <array>
+                <string>localhost</string>
+                <string>127.0.0.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>id</key>
+            <string>catalog-sample</string>
+            <key>title</key>
+            <string>Catalog Sample</string>
+            <key>subtitle</key>
+            <string>Secondary Endpoint</string>
+            <key>badgeText</key>
+            <string>BETA</string>
+            <key>iconSymbolName</key>
+            <string>shippingbox</string>
+            <key>accentColorHex</key>
+            <string>#7C3AED</string>
+            <key>accentColorHexSecondary</key>
+            <string>#EC4899</string>
+            <key>url</key>
+            <string>http://localhost:4200/products</string>
+            <key>allowedHosts</key>
+            <array>
+                <string>localhost</string>
+                <string>127.0.0.1</string>
+            </array>
+        </dict>
+    </array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+</dict>
+</plist>

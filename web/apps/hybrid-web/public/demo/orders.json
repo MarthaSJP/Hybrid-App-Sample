@@ -1,0 +1,6 @@
+{
+  "orders": [
+    { "id": "NR-1001", "status": "paid", "amount": 12800 },
+    { "id": "NR-1002", "status": "pending", "amount": 6400 }
+  ]
+}

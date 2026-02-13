@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: hybrid-api
+    working_dir: /app
+    volumes:
+      - ./api:/app
+      - api_node_modules:/app/node_modules
+    ports:
+      - "8080:8080"
+    command: sh -c "npm install && npm run dev"
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: hybrid-web
+    working_dir: /app
+    depends_on:
+      - api
+    volumes:
+      - ./web:/app
+      - web_node_modules:/app/node_modules
+    ports:
+      - "4200:4200"
+    command: sh -c "npm install && npm run dev:web"
+
+volumes:
+  api_node_modules:
+  web_node_modules:

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
+    <key>UIApplicationSupportsIndirectInputEvents</key>
+    <true/>
+    <key>UILaunchScreen</key>
+    <dict/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>WEB_APPS</key>
+    <array>
+        <dict>
+            <key>id</key>
+            <string>hybrid-stg</string>
+            <key>title</key>
+            <string>Hybrid Demo (Staging)</string>
+            <key>subtitle</key>
+            <string>Staging Environment</string>
+            <key>badgeText</key>
+            <string>STG</string>
+            <key>iconSymbolName</key>
+            <string>hammer</string>
+            <key>accentColorHex</key>
+            <string>#0EA5E9</string>
+            <key>accentColorHexSecondary</key>
+            <string>#22C55E</string>
+            <key>url</key>
+            <string>https://stg.example.local</string>
+            <key>allowedHosts</key>
+            <array>
+                <string>stg.example.local</string>
+            </array>
+        </dict>
+        <dict>
+            <key>id</key>
+            <string>hybrid-prod</string>
+            <key>title</key>
+            <string>Hybrid Demo (Production)</string>
+            <key>subtitle</key>
+            <string>Production Environment</string>
+            <key>badgeText</key>
+            <string>PROD</string>
+            <key>iconSymbolName</key>
+            <string>chart.line.uptrend.xyaxis</string>
+            <key>accentColorHex</key>
+            <string>#F97316</string>
+            <key>accentColorHexSecondary</key>
+            <string>#EF4444</string>
+            <key>url</key>
+            <string>https://app.example.local</string>
+            <key>allowedHosts</key>
+            <array>
+                <string>app.example.local</string>
+            </array>
+        </dict>
+    </array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+    </dict>
+</dict>
+</plist>

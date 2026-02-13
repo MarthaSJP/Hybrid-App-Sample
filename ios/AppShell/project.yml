@@ -1,0 +1,45 @@
+name: AppShell
+options:
+  minimumXcodeGenVersion: 2.44.0
+  deploymentTarget:
+    iOS: "15.0"
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.example.AppShell
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    SUPPORTS_MACCATALYST: NO
+configs:
+  Debug: debug
+  Release: release
+packages:
+  NativeBridgeCore:
+    path: ../NativeBridgeCore
+targets:
+  AppShell:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: .
+        excludes:
+          - AppShell.xcodeproj
+          - project.yml
+    dependencies:
+      - package: NativeBridgeCore
+        product: NativeBridgeCore
+    settings:
+      configs:
+        Debug:
+          INFOPLIST_FILE: Info.Debug.plist
+        Release:
+          INFOPLIST_FILE: Info.Release.plist
+schemes:
+  AppShell:
+    build:
+      targets:
+        AppShell: all
+    run:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,103 @@
+<main class="app">
+  <section class="card">
+    <h1>Hybrid Monitoring Demo</h1>
+    <p>WebView向けのAngular SPA計測デモです。</p>
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/products" routerLinkActive="active">Products</a>
+      <a routerLink="/checkout" routerLinkActive="active">Checkout</a>
+    </nav>
+  </section>
+
+  <section class="card route-panel">
+    <router-outlet></router-outlet>
+  </section>
+
+  <section class="card">
+    <h2>Ajax / Fetch</h2>
+    <p>成功・404・Abortを使ってネットワーク計測の挙動を再現します。</p>
+    <div class="row">
+      <button type="button" (click)="fetchSuccess()">Fetch Success</button>
+      <button type="button" class="secondary" (click)="fetch404()">Fetch 404</button>
+      <button type="button" class="secondary" (click)="fetchAbort()">Fetch Abort</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>JavaScript Error</h2>
+    <p>例外と未処理Promise拒否を意図的に発生させます。</p>
+    <div class="row">
+      <button type="button" class="danger" (click)="throwError()">Throw Error</button>
+      <button type="button" class="danger" (click)="triggerUnhandledRejection()">Unhandled Rejection</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Native Bridge</h2>
+    <p>WebView上でのJS↔Native連携確認用です。</p>
+    <div class="row">
+      <button type="button" (click)="getDeviceInfo()">getDeviceInfo</button>
+      <button type="button" class="secondary" (click)="triggerHaptic()">triggerHaptic(light)</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>DOM Stress (Large Repaint)</h2>
+    <p>大規模DOM再描画を意図的に発生させ、WebView内パフォーマンス計測を行うセクションです。</p>
+    <div class="row">
+      <label class="inline-control">
+        Item Count
+        <select [value]="domItemCount()" (change)="setDomItemCount($any($event.target).value)">
+          <option value="600">600</option>
+          <option value="1200">1200</option>
+          <option value="2400">2400</option>
+          <option value="3600">3600</option>
+        </select>
+      </label>
+      <button type="button" (click)="generateDomDataset()">Generate Dataset</button>
+      <button type="button" class="secondary" (click)="forceFullDomRerender()">Force Full Re-render</button>
+      <button type="button" class="secondary" (click)="shuffleDomItems()">Shuffle Order</button>
+      <button type="button" class="secondary" (click)="runRouteChangeWithDomRerender()">Route + DOM Re-render</button>
+      <button type="button" class="danger" (click)="clearDomItems()">Clear</button>
+    </div>
+    <p class="dom-summary">Rendered Items: {{ domItems().length }} / Revision: {{ domRevision() }}</p>
+    <div class="dom-grid">
+      @for (item of domItems(); track item.key) {
+      <article class="dom-card">
+        <div class="dom-card-head">
+          <h3>{{ item.name }}</h3>
+          <span class="chip" [class.warn]="item.status === 'warn'" [class.error]="item.status === 'error'">{{ item.status }}</span>
+        </div>
+        <p>Amount: {{ item.amount }}</p>
+        <p>Updated: {{ item.updatedAt }}</p>
+      </article>
+      }
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Output</h2>
+    <pre>{{ output() }}</pre>
+  </section>
+
+  <section class="card">
+    <h2>Event Log</h2>
+    <ol id="event-log">
+      @for (item of eventLogs(); track item) {
+      <li>{{ item }}</li>
+      }
+    </ol>
+  </section>
+</main>
+
+@if (errorDialogVisible()) {
+<div class="error-overlay" role="dialog" aria-modal="true" aria-label="error-dialog">
+  <div class="error-modal">
+    <h3>{{ errorDialogTitle() }}</h3>
+    <p>{{ errorDialogMessage() }}</p>
+    <div class="row">
+      <button type="button" (click)="closeErrorDialog()">OK</button>
+    </div>
+  </div>
+</div>
+}
