@@ -53,6 +53,26 @@ struct AppConfig {
 
         return token
     }
+
+    static var storeID: String? {
+        get {
+            let value = UserDefaults.standard.string(forKey: storeIDKey)?.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard let value, !value.isEmpty else {
+                return nil
+            }
+            return value
+        }
+        set {
+            let value = newValue?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if value.isEmpty {
+                UserDefaults.standard.removeObject(forKey: storeIDKey)
+                return
+            }
+            UserDefaults.standard.set(value, forKey: storeIDKey)
+        }
+    }
+
+    private static let storeIDKey = "app_shell.store_id"
 }
 
 struct WebAppDefinition: Hashable {

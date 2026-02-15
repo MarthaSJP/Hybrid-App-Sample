@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2150C3921E1135F349FA5872 /* AppCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4FF9DE1F97F7039A7AB161 /* AppCatalogViewController.swift */; };
+		263DB3BD3BEBCE35EFC5CC44 /* GetMobileAgentContextHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7096897AD9CF72DE9FC93722 /* GetMobileAgentContextHandler.swift */; };
 		3489E98C1F33CBA7FF025683 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F9BE3D62A261DAEB38C2F /* AppConfig.swift */; };
 		7E17FD4CB9905F897726EBB3 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0D22101EE9F39CF4A546D /* WebViewController.swift */; };
 		962ECC0DED8A0746279451F7 /* upload_dsym_results.log in Resources */ = {isa = PBXBuildFile; fileRef = 11E17BE0E964AB775F4DF417 /* upload_dsym_results.log */; };
@@ -24,6 +25,7 @@
 		28FFE186B534A2DA53F848D4 /* Info.Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.Debug.plist; sourceTree = "<group>"; };
 		47456D8C66917C34BCFA4B26 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5B4FF9DE1F97F7039A7AB161 /* AppCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCatalogViewController.swift; sourceTree = "<group>"; };
+		7096897AD9CF72DE9FC93722 /* GetMobileAgentContextHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMobileAgentContextHandler.swift; sourceTree = "<group>"; };
 		7BC0D22101EE9F39CF4A546D /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		9FF767F5A50660952E01BF5B /* Info.Release.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.Release.plist; sourceTree = "<group>"; };
 		A77B6EE6098EC9EFA06E9003 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				5B4FF9DE1F97F7039A7AB161 /* AppCatalogViewController.swift */,
 				126F9BE3D62A261DAEB38C2F /* AppConfig.swift */,
 				19D79E6915E59771A313D165 /* AppDelegate.swift */,
+				7096897AD9CF72DE9FC93722 /* GetMobileAgentContextHandler.swift */,
 				28FFE186B534A2DA53F848D4 /* Info.Debug.plist */,
 				9FF767F5A50660952E01BF5B /* Info.Release.plist */,
 				11E17BE0E964AB775F4DF417 /* upload_dsym_results.log */,
@@ -195,6 +198,7 @@
 				2150C3921E1135F349FA5872 /* AppCatalogViewController.swift in Sources */,
 				3489E98C1F33CBA7FF025683 /* AppConfig.swift in Sources */,
 				A819A0132CA38E1C98C4E6C9 /* AppDelegate.swift in Sources */,
+				263DB3BD3BEBCE35EFC5CC44 /* GetMobileAgentContextHandler.swift in Sources */,
 				7E17FD4CB9905F897726EBB3 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

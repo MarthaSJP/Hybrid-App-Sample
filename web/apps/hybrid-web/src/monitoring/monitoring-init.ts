@@ -1,5 +1,15 @@
 import { BrowserAgent } from "@newrelic/browser-agent/loaders/browser-agent";
 
+type NewRelicApi = {
+  setCustomAttribute?: (name: string, value: string | number | boolean | null, persist?: boolean) => void;
+};
+
+declare global {
+  interface Window {
+    newrelic?: NewRelicApi;
+  }
+}
+
 export type MonitoringInfoConfig = {
   beacon?: string;
   errorBeacon?: string;
@@ -42,6 +52,18 @@ export function initMonitoring(config: MonitoringConfig): void {
     console.error("[monitoring] New Relic initialization failed", error);
     return;
   }
+}
+
+export function setMonitoringCustomAttribute(
+  key: string,
+  value: string | number | boolean | null,
+  persist = false
+): void {
+  if (!key) {
+    return;
+  }
+
+  window.newrelic?.setCustomAttribute?.(key, value, persist);
 }
 
 function containsPlaceholderToken(value: string): boolean {

@@ -19,7 +19,8 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
     private lazy var router: BridgeMessageRouter = {
         let dispatcher = CommandDispatcher(handlers: [
             GetDeviceInfoHandler(),
-            TriggerHapticHandler()
+            TriggerHapticHandler(),
+            GetMobileAgentContextHandler()
         ])
 
         return BridgeMessageRouter(dispatcher: dispatcher) { [weak self] response in

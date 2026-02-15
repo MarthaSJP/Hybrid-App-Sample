@@ -2,6 +2,9 @@ import UIKit
 
 final class AppCatalogViewController: UIViewController {
     private let apps: [WebAppDefinition]
+    private let storeIDTextField = UITextField()
+    private let storeIDSaveButton = UIButton(type: .system)
+    private let storeIDValueLabel = UILabel()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout { _, environment in
@@ -57,18 +60,74 @@ final class AppCatalogViewController: UIViewController {
         headerLabel.textColor = .secondaryLabel
         headerLabel.text = "Launch a web app"
 
+        configureStoreIDControls()
+
+        let storeIDStack = UIStackView(arrangedSubviews: [storeIDTextField, storeIDSaveButton])
+        storeIDStack.axis = .horizontal
+        storeIDStack.spacing = 8
+        storeIDStack.translatesAutoresizingMaskIntoConstraints = false
+
+        let storeIDSection = UIStackView(arrangedSubviews: [storeIDStack, storeIDValueLabel])
+        storeIDSection.axis = .vertical
+        storeIDSection.spacing = 8
+        storeIDSection.translatesAutoresizingMaskIntoConstraints = false
+
         view.addSubview(headerLabel)
+        view.addSubview(storeIDSection)
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             headerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
             headerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
 
-            collectionView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 4),
+            storeIDSection.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8),
+            storeIDSection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
+            storeIDSection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+
+            storeIDSaveButton.widthAnchor.constraint(equalToConstant: 88),
+
+            collectionView.topAnchor.constraint(equalTo: storeIDSection.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        refreshStoreIDLabel()
+    }
+
+    private func configureStoreIDControls() {
+        storeIDTextField.borderStyle = .roundedRect
+        storeIDTextField.placeholder = "店舗IDを入力"
+        storeIDTextField.clearButtonMode = .whileEditing
+        storeIDTextField.returnKeyType = .done
+        storeIDTextField.autocapitalizationType = .none
+        storeIDTextField.autocorrectionType = .no
+        storeIDTextField.textContentType = .none
+        storeIDTextField.delegate = self
+
+        storeIDSaveButton.setTitle("確定", for: .normal)
+        storeIDSaveButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        storeIDSaveButton.addTarget(self, action: #selector(didTapSaveStoreID), for: .touchUpInside)
+
+        storeIDValueLabel.font = .preferredFont(forTextStyle: .footnote)
+        storeIDValueLabel.textColor = .secondaryLabel
+        storeIDValueLabel.numberOfLines = 1
+    }
+
+    @objc
+    private func didTapSaveStoreID() {
+        view.endEditing(true)
+        AppConfig.storeID = storeIDTextField.text
+        storeIDTextField.text = nil
+        refreshStoreIDLabel()
+    }
+
+    private func refreshStoreIDLabel() {
+        if let storeID = AppConfig.storeID {
+            storeIDValueLabel.text = "現在の店舗ID: \(storeID)"
+        } else {
+            storeIDValueLabel.text = "現在の店舗ID: 未設定"
+        }
     }
 }
 
@@ -94,6 +153,13 @@ extension AppCatalogViewController: UICollectionViewDelegate {
         let viewController = WebViewController(config: selected.appConfig)
         viewController.title = selected.title
         navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AppCatalogViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        didTapSaveStoreID()
+        return true
     }
 }
 

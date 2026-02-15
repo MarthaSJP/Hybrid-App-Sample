@@ -1,4 +1,4 @@
-import type { CommandRequest, CommandResponse, DeviceInfo, HapticStyle } from "./types";
+import type { CommandRequest, CommandResponse, DeviceInfo, HapticStyle, MobileAgentContext } from "./types";
 
 const BRIDGE_HANDLER_NAME = "nativeBridge";
 const DEFAULT_TIMEOUT_MS = 5000;
@@ -14,14 +14,10 @@ type PendingRequest = {
 };
 
 export class NativeBridgeClient {
-  private pending = new Map<string, PendingRequest>();
-  private host = globalThis as typeof globalThis & { onNativeMessage?: (response: CommandResponse) => void; webkit?: any };
+  private static pending = new Map<string, PendingRequest>();
 
   constructor(private timeoutMs = DEFAULT_TIMEOUT_MS) {
-    this.host.onNativeMessage =
-      (response: CommandResponse) => {
-        this.handleNativeMessage(response);
-      };
+    NativeBridgeClient.installGlobalHandler();
   }
 
   send(method: string, payload?: unknown): Promise<CommandResponse> {
@@ -33,17 +29,18 @@ export class NativeBridgeClient {
 
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
-        this.pending.delete(request.id);
+        NativeBridgeClient.pending.delete(request.id);
         reject(new Error(`TIMEOUT: request ${request.id} exceeded ${this.timeoutMs}ms`));
       }, this.timeoutMs);
 
-      this.pending.set(request.id, { resolve, reject, timeoutId });
+      NativeBridgeClient.pending.set(request.id, { resolve, reject, timeoutId });
 
-      const webkit = this.host.webkit;
+      const host = globalThis as typeof globalThis & { webkit?: any };
+      const webkit = host.webkit;
       const handler = webkit?.messageHandlers?.[BRIDGE_HANDLER_NAME];
       if (!handler || typeof handler.postMessage !== "function") {
         clearTimeout(timeoutId);
-        this.pending.delete(request.id);
+        NativeBridgeClient.pending.delete(request.id);
         reject(new Error("Native bridge handler is not available"));
         return;
       }
@@ -68,14 +65,30 @@ export class NativeBridgeClient {
     }
   }
 
-  private handleNativeMessage(response: CommandResponse): void {
-    const pending = this.pending.get(response.id);
+  async getMobileAgentContext(): Promise<MobileAgentContext> {
+    const response = await this.send("getMobileAgentContext");
+    if (!response.ok || !response.result) {
+      throw new Error(response.error?.message ?? "getMobileAgentContext failed");
+    }
+
+    return response.result as unknown as MobileAgentContext;
+  }
+
+  private static installGlobalHandler(): void {
+    const host = globalThis as typeof globalThis & { onNativeMessage?: (response: CommandResponse) => void };
+    host.onNativeMessage = (response: CommandResponse) => {
+      NativeBridgeClient.handleNativeMessage(response);
+    };
+  }
+
+  private static handleNativeMessage(response: CommandResponse): void {
+    const pending = NativeBridgeClient.pending.get(response.id);
     if (!pending) {
       return;
     }
 
     clearTimeout(pending.timeoutId);
-    this.pending.delete(response.id);
+    NativeBridgeClient.pending.delete(response.id);
 
     if (response.ok) {
       pending.resolve(response);

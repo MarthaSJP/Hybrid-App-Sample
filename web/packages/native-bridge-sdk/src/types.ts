@@ -26,3 +26,8 @@ export type DeviceInfo = {
 };
 
 export type HapticStyle = "light" | "medium" | "heavy";
+
+export type MobileAgentContext = {
+  sessionId: string;
+  uuid: string;
+};
