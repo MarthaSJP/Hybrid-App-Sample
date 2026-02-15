@@ -90,6 +90,18 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
             return
         }
 
+        // Restrict only top-level web navigations. Subframe and non-http(s) URLs
+        // can be used internally by browser tooling or JS SDKs.
+        if navigationAction.targetFrame?.isMainFrame == false {
+            decisionHandler(.allow)
+            return
+        }
+
+        if let scheme = url.scheme?.lowercased(), scheme != "http", scheme != "https" {
+            decisionHandler(.allow)
+            return
+        }
+
         if let host = url.host, config.allowedHosts.contains(host) {
             decisionHandler(.allow)
             return

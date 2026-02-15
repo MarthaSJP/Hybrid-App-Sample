@@ -10,18 +10,25 @@
 		2150C3921E1135F349FA5872 /* AppCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4FF9DE1F97F7039A7AB161 /* AppCatalogViewController.swift */; };
 		3489E98C1F33CBA7FF025683 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F9BE3D62A261DAEB38C2F /* AppConfig.swift */; };
 		7E17FD4CB9905F897726EBB3 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0D22101EE9F39CF4A546D /* WebViewController.swift */; };
+		962ECC0DED8A0746279451F7 /* upload_dsym_results.log in Resources */ = {isa = PBXBuildFile; fileRef = 11E17BE0E964AB775F4DF417 /* upload_dsym_results.log */; };
 		A819A0132CA38E1C98C4E6C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D79E6915E59771A313D165 /* AppDelegate.swift */; };
 		DA292C1B51E296048CEB1808 /* NativeBridgeCore in Frameworks */ = {isa = PBXBuildFile; productRef = C0B4030BB83BD90EACFFDDE8 /* NativeBridgeCore */; };
+		F5375F083A939DD7BC7CF6F5 /* NewRelic in Frameworks */ = {isa = PBXBuildFile; productRef = 91129398C60E5D4FC5CD458B /* NewRelic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0DDF57D0CBADB43639D0184F /* NativeBridgeCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = NativeBridgeCore; path = ../NativeBridgeCore; sourceTree = SOURCE_ROOT; };
+		11E17BE0E964AB775F4DF417 /* upload_dsym_results.log */ = {isa = PBXFileReference; path = upload_dsym_results.log; sourceTree = "<group>"; };
 		126F9BE3D62A261DAEB38C2F /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		19D79E6915E59771A313D165 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28FFE186B534A2DA53F848D4 /* Info.Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.Debug.plist; sourceTree = "<group>"; };
+		47456D8C66917C34BCFA4B26 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5B4FF9DE1F97F7039A7AB161 /* AppCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCatalogViewController.swift; sourceTree = "<group>"; };
 		7BC0D22101EE9F39CF4A546D /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		9FF767F5A50660952E01BF5B /* Info.Release.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.Release.plist; sourceTree = "<group>"; };
+		A77B6EE6098EC9EFA06E9003 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		AC3233EBEDA9C8ADE069DAD6 /* Secrets.template.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.template.xcconfig; sourceTree = "<group>"; };
+		BF36C3BED63787BDEEE7CAAE /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		F2D12FC9ECF6F2E720535C0E /* AppShell.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AppShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -31,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA292C1B51E296048CEB1808 /* NativeBridgeCore in Frameworks */,
+				F5375F083A939DD7BC7CF6F5 /* NewRelic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +69,9 @@
 				19D79E6915E59771A313D165 /* AppDelegate.swift */,
 				28FFE186B534A2DA53F848D4 /* Info.Debug.plist */,
 				9FF767F5A50660952E01BF5B /* Info.Release.plist */,
+				11E17BE0E964AB775F4DF417 /* upload_dsym_results.log */,
 				7BC0D22101EE9F39CF4A546D /* WebViewController.swift */,
+				BEE87819614288DCD5A0573E /* Config */,
 			);
 			name = AppShell;
 			path = .;
@@ -71,9 +81,21 @@
 			isa = PBXGroup;
 			children = (
 				404EAB736B734B16B11F748C /* AppShell */,
+				BEE87819614288DCD5A0573E /* Config */,
 				143D151B48F8F4352299E478 /* Packages */,
 				13B8CD918F55491CB7022417 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		BEE87819614288DCD5A0573E /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A77B6EE6098EC9EFA06E9003 /* Debug.xcconfig */,
+				BF36C3BED63787BDEEE7CAAE /* Release.xcconfig */,
+				AC3233EBEDA9C8ADE069DAD6 /* Secrets.template.xcconfig */,
+				47456D8C66917C34BCFA4B26 /* Secrets.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,7 +106,9 @@
 			buildConfigurationList = C6EED44B260BD83E55EAFFB5 /* Build configuration list for PBXNativeTarget "AppShell" */;
 			buildPhases = (
 				413EA241A8D33A4C3820A9C4 /* Sources */,
+				0D0BEF865E498F1E823C5412 /* Resources */,
 				583F1246893F9CB9FBE27548 /* Frameworks */,
+				0AC86367A6F832F797D52B0A /* New Relic dSYM Upload */,
 			);
 			buildRules = (
 			);
@@ -93,6 +117,7 @@
 			name = AppShell;
 			packageProductDependencies = (
 				C0B4030BB83BD90EACFFDDE8 /* NativeBridgeCore */,
+				91129398C60E5D4FC5CD458B /* NewRelic */,
 			);
 			productName = AppShell;
 			productReference = F2D12FC9ECF6F2E720535C0E /* AppShell.app */;
@@ -118,6 +143,7 @@
 			mainGroup = 6ECB784F98436F8957E5AED0;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				287F9EAF0868EF2D5238E365 /* XCRemoteSwiftPackageReference "newrelic-ios-agent-spm" */,
 				62AD674FED7F32161F18D0F3 /* XCLocalSwiftPackageReference "../NativeBridgeCore" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -128,6 +154,38 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D0BEF865E498F1E823C5412 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				962ECC0DED8A0746279451F7 /* upload_dsym_results.log in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0AC86367A6F832F797D52B0A /* New Relic dSYM Upload */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "New Relic dSYM Upload";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ARTIFACT_DIR=\"${BUILD_DIR%Build/*}\"\nSCRIPT=$(/usr/bin/find \"${SRCROOT}\" \"${ARTIFACT_DIR}\" -type f -name run-symbol-tool | head -n 1)\nif [ -n \"${SCRIPT}\" ] && [ -n \"${NEW_RELIC_APP_TOKEN}\" ]; then\n  /bin/sh \"${SCRIPT}\" \"${NEW_RELIC_APP_TOKEN}\"\nelse\n  echo \"New Relic dSYM upload skipped (script or token not found)\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		413EA241A8D33A4C3820A9C4 /* Sources */ = {
@@ -178,9 +236,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -190,6 +250,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.AppShell;
@@ -237,9 +298,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -255,6 +318,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -271,6 +335,7 @@
 		};
 		8A9711C38FA2ADAD387ADCCF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A77B6EE6098EC9EFA06E9003 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -287,6 +352,7 @@
 		};
 		8E21D728AF54765941B95765 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF36C3BED63787BDEEE7CAAE /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -331,7 +397,23 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		287F9EAF0868EF2D5238E365 /* XCRemoteSwiftPackageReference "newrelic-ios-agent-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/newrelic/newrelic-ios-agent-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.5.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		91129398C60E5D4FC5CD458B /* NewRelic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 287F9EAF0868EF2D5238E365 /* XCRemoteSwiftPackageReference "newrelic-ios-agent-spm" */;
+			productName = NewRelic;
+		};
 		C0B4030BB83BD90EACFFDDE8 /* NativeBridgeCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NativeBridgeCore;

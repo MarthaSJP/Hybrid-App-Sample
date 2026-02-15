@@ -34,6 +34,7 @@ web/coverage/
 # Swift / Xcode
 .build/
 ios/NativeBridgeCore/.build/
+ios/AppShell/Config/Secrets.xcconfig
 DerivedData/
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/

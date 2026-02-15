@@ -1,0 +1,3 @@
+#include? "Secrets.xcconfig"
+
+NEW_RELIC_APP_TOKEN = $(inherited)

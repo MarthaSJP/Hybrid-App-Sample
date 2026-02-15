@@ -36,6 +36,23 @@ struct AppConfig {
         false
         #endif
     }
+
+    static var newRelicAppToken: String? {
+        guard let rawToken = Bundle.main.object(forInfoDictionaryKey: "NEW_RELIC_APP_TOKEN") as? String else {
+            return nil
+        }
+
+        let token = rawToken.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !token.isEmpty else {
+            return nil
+        }
+
+        if token.hasPrefix("$(") || token.hasPrefix("__") {
+            return nil
+        }
+
+        return token
+    }
 }
 
 struct WebAppDefinition: Hashable {

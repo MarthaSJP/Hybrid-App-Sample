@@ -184,6 +184,32 @@ Git運用:
 cp web/apps/hybrid-web/src/environments/environment.template.ts web/apps/hybrid-web/src/environments/environment.ts
 ```
 
+## New Relic Mobile設定（必須項目）
+
+設定ファイル:
+
+- `ios/AppShell/Config/Secrets.template.xcconfig`（Git管理）
+- `ios/AppShell/Config/Secrets.xcconfig`（Git管理外）
+
+手順:
+
+1. テンプレートをコピー
+
+```bash
+cp ios/AppShell/Config/Secrets.template.xcconfig ios/AppShell/Config/Secrets.xcconfig
+```
+
+2. `ios/AppShell/Config/Secrets.xcconfig` の `NEW_RELIC_APP_TOKEN` に実値を設定
+
+```xcconfig
+NEW_RELIC_APP_TOKEN = <YOUR_NEW_RELIC_MOBILE_APP_TOKEN>
+```
+
+確認ポイント:
+
+- `NEW_RELIC_APP_TOKEN` が未設定またはプレースホルダの場合、Mobile Agentは起動しません。
+- `AppDelegate` でアプリ起動時に自動初期化されます。
+
 ## iOSプロジェクト生成と起動
 
 `ios/AppShell` は `xcodegen` で再生成可能です。
