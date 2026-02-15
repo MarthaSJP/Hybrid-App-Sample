@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "c7c10317-1fab-42a0-88cc-6dfddcc77376"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -47,6 +48,22 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "app-a": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/hybrid-web/src/environments/environment.ts",
+                  "with": "apps/hybrid-web/src/environments/environment.app-a.ts"
+                }
+              ]
+            },
+            "app-b": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/hybrid-web/src/environments/environment.ts",
+                  "with": "apps/hybrid-web/src/environments/environment.app-b.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -62,6 +79,12 @@
             },
             "development": {
               "buildTarget": "hybrid-web:build:development"
+            },
+            "app-a": {
+              "buildTarget": "hybrid-web:build:development,app-a"
+            },
+            "app-b": {
+              "buildTarget": "hybrid-web:build:development,app-b"
             }
           },
           "defaultConfiguration": "development"

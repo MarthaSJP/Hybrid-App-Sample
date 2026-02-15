@@ -6,7 +6,14 @@
   ],
   "scripts": {
     "dev:web": "ng serve hybrid-web --host 0.0.0.0 --port 4200",
+    "dev:web:app-a": "ng serve hybrid-web --configuration development,app-a --host 0.0.0.0 --port 4200",
+    "dev:web:app-b": "ng serve hybrid-web --configuration development,app-b --host 0.0.0.0 --port 4200",
+    "dev:web:variant": "node scripts/serve-variant.mjs",
     "build:web": "ng build hybrid-web",
+    "build:web:app-a": "ng build hybrid-web --configuration production,app-a",
+    "build:web:app-b": "ng build hybrid-web --configuration production,app-b",
+    "build:web:variant": "node scripts/build-variant.mjs",
+    "check:monitoring-placeholders": "node scripts/check-monitoring-placeholders.mjs",
     "test": "vitest run"
   },
   "dependencies": {
@@ -15,6 +22,7 @@
     "@angular/core": "^21.1.4",
     "@angular/platform-browser": "^21.1.4",
     "@angular/router": "^21.1.4",
+    "@newrelic/browser-agent": "^1.309.0",
     "rxjs": "~7.8.2",
     "tslib": "^2.8.1"
   },

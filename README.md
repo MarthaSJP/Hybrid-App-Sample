@@ -73,11 +73,36 @@ swift test
 cd web
 npm run build:web
 ```
+
+New Relicライセンス分離ビルド:
+
+```bash
+cd web
+npm run build:web:app-a
+npm run build:web:app-b
+```
+
+`APP_VARIANT` 指定ビルド:
+
+```bash
+cd web
+APP_VARIANT=app-a npm run build:web:variant
+APP_VARIANT=app-b npm run build:web:variant
+```
+
 Angular SPAのローカル実行:
 
 ```bash
 cd web
 npm run dev:web
+```
+
+variant指定で起動:
+
+```bash
+cd web
+npm run dev:web:app-a
+npm run dev:web:app-b
 ```
 
 SDKテスト:
@@ -110,6 +135,53 @@ open http://localhost:4200/
 
 ```bash
 docker compose down
+```
+
+## New Relic設定（必須項目）
+
+設定先:
+
+- `web/apps/hybrid-web/src/environments/environment.ts`（ローカル用・Git管理外）
+- `web/apps/hybrid-web/src/environments/environment.app-a.ts`
+- `web/apps/hybrid-web/src/environments/environment.app-b.ts`
+
+設定する値:
+
+- `monitoring.enabled`
+  - `true` で計測有効
+- `monitoring.info.licenseKey`
+  - `NRJS-` プレフィックス付きキーを設定
+  - 例: `NRJS-xxxxxxxxxxxxxxxx`
+- `monitoring.info.applicationID`
+- `monitoring.info.beacon`
+  - US: `bam.nr-data.net`
+  - EU契約の場合はEUエンドポイントを設定
+- `monitoring.info.errorBeacon`
+  - `beacon` と同じリージョンを設定
+- `monitoring.loaderConfig.accountID`
+- `monitoring.loaderConfig.trustKey`
+- `monitoring.loaderConfig.agentID`
+- `monitoring.loaderConfig.licenseKey`
+  - `info.licenseKey` と同じ値
+- `monitoring.loaderConfig.applicationID`
+  - `info.applicationID` と同じ値
+
+確認ポイント:
+
+- ブラウザConsole: `typeof window.newrelic` が `object`
+- Network: `https://bam...nr-data.net` への `POST` が `200` または `202`
+- `403` の場合:
+  - `licenseKey` 形式（`NRJS-` 付き）を確認
+  - `applicationID` と `licenseKey` の組み合わせを確認
+  - US/EUエンドポイント不一致を確認
+
+Git運用:
+
+- `environment.ts` は Git 管理しません
+- 作成元: `web/apps/hybrid-web/src/environments/environment.template.ts`
+
+```bash
+cp web/apps/hybrid-web/src/environments/environment.template.ts web/apps/hybrid-web/src/environments/environment.ts
 ```
 
 ## iOSプロジェクト生成と起動

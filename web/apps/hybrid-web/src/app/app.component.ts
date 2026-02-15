@@ -64,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     window.addEventListener("unhandledrejection", this.handleUnhandledRejection);
 
     this.pushEvent(`viewRendered: ${this.router.url || "/"}`);
+    void this.runInitialAjaxCheck();
   }
 
   ngOnDestroy(): void {
@@ -182,13 +183,19 @@ export class AppComponent implements OnInit, OnDestroy {
     const start = performance.now();
     const beforeCount = this.domItems().length;
 
-    const routePromise = this.router.navigateByUrl(nextPath);
-    const domPromise = beforeCount > 0 ? this.forceFullDomRerender() : this.generateDomDataset();
+    try {
+      const routePromise = this.router.navigateByUrl(nextPath);
+      const domPromise = beforeCount > 0 ? this.forceFullDomRerender() : this.generateDomDataset();
+      const [navigated] = await Promise.all([routePromise, domPromise]);
+      if (!navigated) {
+        throw new Error(`Route navigation cancelled: ${nextPath}`);
+      }
 
-    await Promise.all([routePromise, domPromise]);
-
-    const elapsed = Math.round((performance.now() - start) * 100) / 100;
-    this.pushEvent(`route+dom: navigated to ${nextPath} with ${this.domItems().length} items in ${elapsed}ms`);
+      const elapsed = Math.round((performance.now() - start) * 100) / 100;
+      this.pushEvent(`route+dom: navigated to ${nextPath} with ${this.domItems().length} items in ${elapsed}ms`);
+    } catch (error) {
+      this.handleError("routeDomError", error);
+    }
   }
 
   shuffleDomItems(): void {
@@ -214,6 +221,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.output.set(message);
     this.pushEvent(`${kind}: ${message}`);
     this.showErrorDialog(kind, message);
+  }
+
+  private async runInitialAjaxCheck(): Promise<void> {
+    try {
+      const response = await fetch(`/api/cards?count=1&revision=${this.domRevision() + 1}&source=initial-load`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} (${response.url})`);
+      }
+      this.pushEvent("ajaxOnLoad: /api/cards");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.pushEvent(`ajaxOnLoadError: ${message}`);
+    }
   }
 
   private async fetchCardsFromApi(count: number, revision: number): Promise<DomStressItem[]> {

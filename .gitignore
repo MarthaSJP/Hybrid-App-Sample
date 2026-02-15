@@ -12,6 +12,10 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+web/apps/hybrid-web/src/environments/environment.local.ts
+web/apps/hybrid-web/src/environments/environment.app-a.local.ts
+web/apps/hybrid-web/src/environments/environment.app-b.local.ts
+web/apps/hybrid-web/src/environments/environment.ts
 
 # Editor
 .vscode/
