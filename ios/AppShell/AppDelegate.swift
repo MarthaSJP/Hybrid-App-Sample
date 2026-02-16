@@ -9,6 +9,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        // アプリ起動直後にMobile Agentを開始し、以降の操作を計測対象にする。
         startNewRelicIfConfigured()
 
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -21,6 +22,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func startNewRelicIfConfigured() {
+        // トークン未設定（またはテンプレート値）の場合は計測を開始しない。
         guard let appToken = AppConfig.newRelicAppToken else {
             return
         }

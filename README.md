@@ -13,14 +13,14 @@
   - JSブリッジ `nativeBridge` の受信と `window.onNativeMessage` 返却
 - `web/packages/native-bridge-sdk`
   - 内部npm SDK（`@internal/native-bridge-sdk`）
-  - `send`, `getDeviceInfo`, `triggerHaptic` を提供
+  - `send`, `getDeviceInfo`, `triggerHaptic`, `getMobileAgentContext` を提供
 - `web/apps/hybrid-web`
   - Angular SPA本体（Standalone + Router）
   - RouteChange/Ajax/JavaScript Errorを再現するデモ画面
 - `api`
   - カードデータを返すバックエンドAPI（Express）
 
-## ブリッジ契約
+## ブリッジ仕様
 
 ### JS -> Native
 
@@ -57,6 +57,7 @@ window.onNativeMessage({
 - Native Bridge
   - `getDeviceInfo`
   - `triggerHaptic(light)`
+  - `getMobileAgentContext`（起動時に `mobileSessionId` / `mobileUuid` をBrowserへ連携）
 
 ## テスト
 
@@ -155,7 +156,7 @@ docker compose down
 - `monitoring.info.applicationID`
 - `monitoring.info.beacon`
   - US: `bam.nr-data.net`
-  - EU契約の場合はEUエンドポイントを設定
+  - EUリージョンを利用する場合はEUエンドポイントを設定
 - `monitoring.info.errorBeacon`
   - `beacon` と同じリージョンを設定
 - `monitoring.loaderConfig.accountID`

@@ -31,6 +31,7 @@ export function initMonitoring(config: MonitoringConfig): void {
     return;
   }
 
+  // Browser Agent初期化に必要な最低限の値をチェックする。
   const hasRequiredValues = Boolean(config.info?.applicationID && config.info?.licenseKey);
   if (!hasRequiredValues) {
     console.warn("[monitoring] Missing required New Relic config. Monitoring disabled.");
@@ -62,7 +63,7 @@ export function setMonitoringCustomAttribute(
   if (!key) {
     return;
   }
-
+  // persist=true の場合、同一セッション内の後続イベントにも属性を引き継ぐ。
   window.newrelic?.setCustomAttribute?.(key, value, persist);
 }
 

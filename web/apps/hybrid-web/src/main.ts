@@ -5,8 +5,10 @@ import { environment } from "./environments/environment";
 import { initMonitoring, setMonitoringCustomAttribute } from "./monitoring/monitoring-init";
 import { NativeBridgeClient } from "@internal/native-bridge-sdk";
 
+// Angular起動前にBrowser Agentを初期化し、初期描画イベントの取りこぼしを減らす。
 initMonitoring(environment.monitoring);
 if (isNativeBridgeAvailable()) {
+  // WebView実行時のみ、Mobile Agentの文脈情報をBrowser Agentへ連携する。
   void attachMobileAgentContext();
 }
 
@@ -17,6 +19,7 @@ async function attachMobileAgentContext(): Promise<void> {
 
   try {
     const context = await bridge.getMobileAgentContext();
+    // mobileSessionId をキーにして Mobile / Browser イベントを横断分析する。
     setMonitoringCustomAttribute("mobileSessionId", context.sessionId || null, true);
     setMonitoringCustomAttribute("mobileUuid", context.uuid || null, true);
   } catch (error) {

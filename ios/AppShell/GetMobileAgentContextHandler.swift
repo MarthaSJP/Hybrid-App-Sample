@@ -10,7 +10,9 @@ struct GetMobileAgentContextHandler: NativeCommandHandler {
     }
 
     func handle(_ request: CommandRequest) async -> CommandResponse {
+        // Mobile AgentのセッションIDをWebへ渡し、Browser Agent側で相関分析に使う。
         let sessionID = resolveSessionID() ?? ""
+        // 端末単位の追跡用にVendor IDも併せて返す。
         let uuid = resolveDeviceUUID() ?? ""
 
         let result: [String: AnyCodable] = [
@@ -22,6 +24,7 @@ struct GetMobileAgentContextHandler: NativeCommandHandler {
     }
 
     private func resolveSessionID() -> String? {
+        // New Relic iOS SDKが管理する現在セッションのIDを取得する。
         guard let sessionID = NewRelic.currentSessionId(), !sessionID.isEmpty else {
             return nil
         }

@@ -14,6 +14,7 @@ type PendingRequest = {
 };
 
 export class NativeBridgeClient {
+  // リクエストID単位でPromiseを保持し、Nativeからの応答と突合する。
   private static pending = new Map<string, PendingRequest>();
 
   constructor(private timeoutMs = DEFAULT_TIMEOUT_MS) {
@@ -45,6 +46,7 @@ export class NativeBridgeClient {
         return;
       }
 
+      // JS -> Native の送信形式: postMessage(CommandRequest)
       handler.postMessage(request);
     });
   }
@@ -76,12 +78,14 @@ export class NativeBridgeClient {
 
   private static installGlobalHandler(): void {
     const host = globalThis as typeof globalThis & { onNativeMessage?: (response: CommandResponse) => void };
+    // Native -> JS の受信形式: window.onNativeMessage(CommandResponse)
     host.onNativeMessage = (response: CommandResponse) => {
       NativeBridgeClient.handleNativeMessage(response);
     };
   }
 
   private static handleNativeMessage(response: CommandResponse): void {
+    // レスポンスIDに対応する保留中リクエストを解決/失敗させる。
     const pending = NativeBridgeClient.pending.get(response.id);
     if (!pending) {
       return;

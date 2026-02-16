@@ -8,6 +8,7 @@ public final class CommandDispatcher {
     }
 
     public func dispatch(_ request: CommandRequest) async -> CommandResponse {
+        // methodを処理できる最初のHandlerへルーティングする。
         guard let handler = handlers.first(where: { $0.canHandle(request.method) }) else {
             return CommandResponse(id: request.id, ok: false, error: .methodNotFound(request.method))
         }

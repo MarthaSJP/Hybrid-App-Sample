@@ -11,10 +11,12 @@ public final class BridgeMessageRouter: NSObject, WKScriptMessageHandler {
     }
 
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        // nativeBridge以外のメッセージはこのルーターでは処理しない。
         guard message.name == "nativeBridge" else {
             return
         }
 
+        // JSから受け取ったbodyを、Bridge仕様のCommandRequestへ変換する。
         guard let request = CommandRequest(from: message.body) else {
             emitResponse(
                 CommandResponse(
@@ -27,6 +29,7 @@ public final class BridgeMessageRouter: NSObject, WKScriptMessageHandler {
         }
 
         Task {
+            // methodに対応するHandlerへ委譲し、結果をWebへ返す。
             let response = await dispatcher.dispatch(request)
             emitResponse(response)
         }

@@ -38,6 +38,7 @@ struct AppConfig {
     }
 
     static var newRelicAppToken: String? {
+        // Info.plistから取得したトークンを正規化し、未設定値を除外して返す。
         guard let rawToken = Bundle.main.object(forInfoDictionaryKey: "NEW_RELIC_APP_TOKEN") as? String else {
             return nil
         }

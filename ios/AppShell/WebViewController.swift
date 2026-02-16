@@ -24,6 +24,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
         ])
 
         return BridgeMessageRouter(dispatcher: dispatcher) { [weak self] response in
+            // Native側のレスポンスをJSのonNativeMessageへ返却する。
             self?.emitResponseToWeb(response)
         }
     }()
@@ -50,6 +51,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
+        // JS側の window.webkit.messageHandlers.nativeBridge と接続する。
         webView.configuration.userContentController.add(router, name: "nativeBridge")
         loadInitialURL()
     }
@@ -73,6 +75,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate {
             return
         }
 
+        // 返却形式は window.onNativeMessage(CommandResponse) の仕様に合わせる。
         let script = "window.onNativeMessage && window.onNativeMessage(\(json));"
         DispatchQueue.main.async { [weak self] in
             self?.webView.evaluateJavaScript(script) { _, error in
